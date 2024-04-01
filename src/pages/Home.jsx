@@ -4,17 +4,31 @@ import { PiHandHeart } from "react-icons/pi";
 import Footer from "../components/Footer";
 import SignIn from "../components/SignIn";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, showAuth } from "../redux/toggleSlice";
+
+import {
+  hideMenu,
+  login,
+  logout,
+  showAuth,
+  showMenu,
+} from "../redux/toggleSlice";
 import { BsArrowRight } from "react-icons/bs";
 import { collection, getDocs, limit, query } from "firebase/firestore";
 import { db } from "../firebase";
 import CampaignCard from "../components/CampaignCard";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { FaBars } from "react-icons/fa";
+import "animate.css";
+import MobileMenu from "../components/MobileMenu";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
 const Home = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.toggleSlice.auth);
   const loggedIn = useSelector((state) => state.toggleSlice.loggedIn);
+  const menu = useSelector((state) => state.toggleSlice.menu);
   if (localStorage.getItem("user")) dispatch(login());
   const [campaigns, setCampaigns] = useState([]);
 
@@ -34,6 +48,8 @@ const Home = () => {
   }
   return (
     <>
+      {menu && <MobileMenu />}
+
       <section
         style={{
           backgroundImage:
@@ -46,7 +62,9 @@ const Home = () => {
             <div className="text-white flex justify-between items-center lg:px-36 lg:py-14 px-4 py-8">
               <div className="flex items-end gap-3 ">
                 <img src={logo} alt="Ni load hua" className="w-[8%]" />
-                <div className="text-sm">Munni Welfare Foundation</div>
+                <div className="text-sm max-sm:text-xs">
+                  Munni Welfare Foundation
+                </div>
               </div>
               <div className="max-sm:hidden flex lg:gap-8 gap-4 text-sm items-center">
                 <div>
@@ -86,6 +104,11 @@ const Home = () => {
                   </div>
                 </Link>
               </div>
+              <FaBars
+                onClick={() => dispatch(showMenu())}
+                size={22}
+                className="hidden max-sm:block"
+              />
             </div>
 
             <div className="h-[500px] grid content-center justify-items-start max-sm:h-[260px] max-sm:content-start lg:px-36 lg:py-14 px-4 py-8">
@@ -170,11 +193,30 @@ const Home = () => {
         <div className="text-2xl max-sm:text-[18px] font-medium text-secondary flex items-center justify-between lg:my-8 mt-4">
           Active Fundraisers
         </div>
-        <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
+        <div className="max-sm:hidden grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
           {campaigns.map((item, index) => {
-            return <CampaignCard key={index} data={item.data()} id={item.id} />;
+            return (
+              <>
+                <SwiperSlide>
+                  <CampaignCard key={index} data={item.data()} id={item.id} />
+                </SwiperSlide>
+              </>
+            );
           })}
         </div>
+        <Swiper className="hidden max-sm:block mb-4 mt-3">
+          <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
+            {campaigns.map((item, index) => {
+              return (
+                <>
+                  <SwiperSlide>
+                    <CampaignCard key={index} data={item.data()} id={item.id} />
+                  </SwiperSlide>
+                </>
+              );
+            })}
+          </div>
+        </Swiper>
 
         <div className="max-sm:flex mb-4 flex justify-center">
           <button>

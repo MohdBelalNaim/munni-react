@@ -28,8 +28,8 @@ function Profile() {
       {loading && <Loader />}
       <Navigation></Navigation>
       <div className="mt-5 mb-10">
-        <div className="flex justify-center w-full xl:flex-row flex-col">
-          <div className="container w-full relative rounded-xl border border-gray-200 bg-white  px-4 py-6 mx-4">
+        <div className="flex justify-center w-full xl:flex-row flex-col px-2">
+          <div className="container w-full relative rounded-xl border border-gray-200 bg-white py-6 px-4">
             <div className="flex justify-end lg:mr-8 absolute right-0">
               <button
                 className="bg-secondary text-white px-8 py-2 mx-4 rounded-full max-sm:hidden"

@@ -1,11 +1,33 @@
-"use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
+import { useForm } from "react-hook-form";
 
 function EditProfile() {
   const [isVisible, setIsVisible] = useState(true);
+  const [photo, setPhoto] = useState("");
+  const [user, setUser] = useState({});
+  const { register, handleSubmit, setValue } = useForm();
+
+  async function getUserData() {
+    const user = query(
+      collection(db, "users"),
+      where("email", "==", localStorage.getItem("user"))
+    );
+    const data = await getDocs(user);
+    setUser(data.docs[0].data());
+    setValue("name", data.docs[0].data()?.name);
+    setValue("dob", data.docs[0].data()?.dob);
+    setValue("pan", data.docs[0].data()?.pan);
+    setValue("aadhar", data.docs[0].data()?.aadhar);
+    setValue("address", data.docs[0].data()?.address);
+  }
+  useEffect(() => {
+    getUserData();
+  }, []);
   return (
     <>
       {isVisible && (
@@ -35,36 +57,38 @@ function EditProfile() {
                 type="file"
                 name="photo"
                 className="w-full border p-3 text-sm"
+                onChange={(e) => setPhoto(e.target.files[0])}
               ></input>
               <input
                 type="text"
                 className="w-full border-b p-3 text-sm"
                 placeholder="Name"
+                {...register("name")}
               />
-              <input
-                type="tel"
-                className="w-full border-b p-3 text-sm"
-                placeholder="Phone number"
-              />
+
               <input
                 type="date"
                 className="w-full border-b p-3 text-sm"
                 placeholder="Date of Birth"
+                {...register("dob")}
               />
               <input
                 type="tel"
                 className="w-full border-b p-3 text-sm"
                 placeholder="PAN Number"
+                {...register("pan")}
               />
               <input
                 type="tel"
                 className="w-full border-b p-3 text-sm"
                 placeholder="Aadhar Number"
+                {...register("aadhar")}
               />
               <input
                 type="tel"
                 className="w-full border-b p-3 text-sm"
                 placeholder="Address"
+                {...register("address")}
               />
               <div className="flex justify-center mt-4">
                 <button className="text-sm px-4 py-2 bg-secondary text-white rounded-full">

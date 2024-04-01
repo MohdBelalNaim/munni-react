@@ -6,6 +6,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import Footer from "../components/Footer";
 import Navigation from "../components/NavigationBar";
 
+
 function About() {
   return (
     <>
@@ -98,7 +99,7 @@ function About() {
           </div>
         </div>
 
-        <section className="p-10">
+        <section className="p-10 max-sm:p-4">
           <section className="lg:py-8 lg:px-36 p-4 bg-primary mt-10 rounded-lg">
             <div className="flex justify-start items-center lg:flex-row flex-col lg:gap-8 gap-0">
               <div className="lg:w-1/3 lg:pb-0 pb-4">

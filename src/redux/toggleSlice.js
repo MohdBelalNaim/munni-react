@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const state = {
   auth: false,
   loggedIn: false,
+  menu:false
 };
 export const toggleSlice = createSlice({
   name: "toggleSlice",
@@ -14,6 +15,12 @@ export const toggleSlice = createSlice({
     hideAuth: (state) => {
       state.auth = false;
     },
+    showMenu: (state) => {
+      state.menu = true;
+    },
+    hideMenu: (state) => {
+      state.menu = false;
+    },
     login: (state) => {
       state.loggedIn = true;
     },
@@ -22,5 +29,5 @@ export const toggleSlice = createSlice({
     },
   },
 });
-export const { showAuth, hideAuth, login, logout } = toggleSlice.actions;
+export const { showAuth, hideAuth, login, logout, showMenu,hideMenu } = toggleSlice.actions;
 export default toggleSlice.reducer;
