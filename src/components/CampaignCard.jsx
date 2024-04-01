@@ -2,9 +2,13 @@ import { BsCalendar, BsPeople } from "react-icons/bs";
 import { NumericFormat } from "react-number-format";
 import { Link } from "react-router-dom";
 const CampaignCard = ({ data, id }) => {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="rounded-xl overflow-hidden border border-gray-200 bg-white">
-      <Link to={`/details/${id}`}>
+      <Link to={`/details/${id}`} onClick={handleClick}>
         <img src={data.url} className="w-full h-48 object-cover" alt="" />
       </Link>
 
