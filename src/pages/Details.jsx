@@ -88,10 +88,22 @@ const Details = () => {
               {campaignData?.story}
             </div>
             <div className="flex gap-5 py-5 border-b border-gray-300">
-              <button className="font-medium w-full border border-gray-300 py-2 rounded-lg shadow">
+              <button
+                className="font-medium w-full border border-gray-300 py-2 rounded-lg shadow"
+                onClick={() => setDonate(!showDonate)}
+              >
                 Donate
               </button>
-              <button className="font-medium w-full border border-gray-300 py-2 rounded-lg shadow">
+              <button
+                className="font-medium w-full border border-gray-300 py-2 rounded-lg shadow"
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      url: window.location.href,
+                    });
+                  }
+                }}                
+              >
                 Share
               </button>
             </div>

@@ -9,8 +9,8 @@ const Contact = () => {
 
       <section>
         <div className="lg:px-36 lg:py-10 bg-secondary h-[400px] max-sm:h-min max-sm:pb-4 max-sm:px-3">
-          <div className="flex justify-between max-sm:flex-col">
-            <div className="grid gap-y-4">
+          <div className="flex justify-between lg:pt-0 md:pt-8 max-sm:px-0 max-sm:flex-col">
+            <div className="grid gap-y-4 px-4">
               <div className="max-sm:pt-4 pt-20 max-sm:pb-0 pb-8 font-bold text-white text-4xl max-sm:text-[18px]">
                 Contact Us
               </div>
@@ -21,7 +21,7 @@ const Contact = () => {
                 Here is how to reach us!
               </div>
             </div>
-            <div className="max-sm:flex max-sm:justify-center max-sm:mt-5">
+            <div className="max-sm:flex max-sm:justify-center max-sm:mt-5 max-w-xs mx-auto lg:mx-0">
               <img
                 src="https://s3.amazonaws.com/i.snag.gy/m4ouI5.jpg"
                 alt="Image Description"
