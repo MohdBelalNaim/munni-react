@@ -98,7 +98,7 @@ const Home = () => {
                   </>
                 )}
 
-                <Link href="/campaign">
+                <Link to="/campaign">
                   <div className="text-secondary px-4 py-2 rounded-md text-xs  bg-primary flex items-center gap-2">
                     Donate <PiHandHeart className="text-xl" />
                   </div>
@@ -121,7 +121,7 @@ const Home = () => {
               <div className="text-white mt-4 text-sm w-[26%] max-sm:w-[80%]">
                 to warm a child &apos;s heart through coordinated play
               </div>
-              <Link href="/campaign">
+              <Link to="/campaign">
                 <button className="bg-primary px-6 rounded-md mt-8 py-4 font-medium max-sm:px-3 max-sm:py-2 max-sm:text-xs">
                   Donate Now
                 </button>
@@ -221,7 +221,7 @@ const Home = () => {
         <div className="max-sm:flex mb-4 flex justify-center">
           <button>
             <Link
-              href="/campaign"
+              to="/campaign"
               className="bg-secondary text-white font-light text-sm py-2 px-4 rounded-full flex items-center gap-2"
             >
               {" "}
@@ -247,7 +247,7 @@ const Home = () => {
               Join our cause and ignite change in the lives of these deserving
               children.
             </div>
-            <Link href="/campaign">
+            <Link to="/campaign">
               <button className="bg-secondary text-white font-medium py-3 px-6 rounded-md w-max max-sm:hidden">
                 Donate Now
               </button>

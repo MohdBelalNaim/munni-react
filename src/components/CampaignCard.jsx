@@ -60,11 +60,12 @@ const CampaignCard = ({ data, id }) => {
             />
           </div>
         </div>
+        <Link to={`/details/${id}`} onClick={handleClick}>
         <div>
           <button className="bg-secondary text-white text-xs px-5 py-2 rounded-full">
             Donate
           </button>
-        </div>
+        </div></Link>
       </div>
     </div>
   );
