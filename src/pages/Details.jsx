@@ -98,7 +98,7 @@ const Details = () => {
               </div>
               <span>•</span>
               <div className="flex items-center gap-2">
-                <BsTags size={18} /> {campaignData?.category || "Miscallneous"}
+                <BsTags size={18} /> {campaignData?.category || "Miscellaneous"}
               </div>
             </div>
             <div className="text-sm mt-5 leading-relaxed">

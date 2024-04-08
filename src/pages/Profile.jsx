@@ -27,7 +27,7 @@ function Profile() {
     <>
       {loading && <Loader />}
       <Navigation></Navigation>
-      <div className="mt-5 mb-10 mx-36">
+      <div className="mt-5 mb-10 lg:mx-36">
         <div className="flex justify-center w-full xl:flex-row flex-col px-2">
           <div className="container w-full relative rounded-xl border border-gray-200 bg-white py-6 px-4">
             <div className="flex justify-end lg:mr-8 absolute right-0">
