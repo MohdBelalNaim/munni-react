@@ -7,9 +7,12 @@ import { db } from "../firebase";
 import Loader from "../components/Loader";
 
 function Profile() {
+  const [docId, setDocId] = useState(null); // State to hold document ID
+
   const [editProfile, seteditProfile] = useState(false);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     async function getUserData() {
       setLoading(true);
@@ -19,6 +22,7 @@ function Profile() {
       );
       const user = await getDocs(q);
       setUserData(user.docs[0].data());
+      setDocId(user.docs[0].id); // Setting the document ID
       setLoading(false);
     }
     getUserData();
@@ -53,7 +57,7 @@ function Profile() {
 
               <div className="pt-8">
                 <p className="xl:text-md text-gray-500 text-sm">Name</p>
-                <p className="xl:text-lg">{userData?.name}</p>
+                <p className="xl:text-lg">{userData?.name || "Not added"}</p>
               </div>
             </div>
 
@@ -163,7 +167,7 @@ function Profile() {
         </div>
       </div>
 
-      {editProfile == true ? <EditProfile /> : null}
+      {editProfile && <EditProfile docId={docId} userData={userData} />}
     </>
   );
 }
