@@ -13,6 +13,8 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Loader from "../components/Loader";
@@ -28,9 +30,21 @@ const Details = () => {
   const campaign = doc(db, "campaigns", id);
   const [campaignData, setCampaignData] = useState({});
   const [donations, setDonations] = useState([]);
+  const [recDonations,setRecDonations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [allDonations, setAllDonations] = useState(false);
   const [topDonations, setTopDonations] = useState(false);
+
+  async function recentDonations() {
+    const q = query(
+      collection(db, "donations"),
+      where("campaign", "==", id),
+      orderBy("amount","desc"),
+      limit(5)
+    );
+    const data = await getDocs(q);
+    setRecDonations(data.docs);
+  }
 
   async function getDonations() {
     const q = query(collection(db, "donations"), where("campaign", "==", id));
@@ -48,6 +62,7 @@ const Details = () => {
   useEffect(() => {
     getData();
     getDonations();
+    recentDonations();
   }, []);
 
   return (
@@ -56,9 +71,11 @@ const Details = () => {
       <Navigation />
 
       <div className="py-5 px-5 max-sm:px-4 lg:px-36 max-sm:py-6">
+
         <div className="max-sm:text-[20px] max-sm:leading-8 text-3xl font-medium mt-4 mb-4 max-sm:mb-0 max-sm:mt-0">
           {campaignData?.title}
         </div>
+
         <div className="grid gap-5 grid-cols-1 md:grid-cols-[1.3fr,0.7fr]">
           <div>
             <img
@@ -81,7 +98,7 @@ const Details = () => {
               </div>
               <span>•</span>
               <div className="flex items-center gap-2">
-                <BsTags size={18} /> {campaignData?.category || "Miscallneous"}
+                <BsTags size={18} /> {campaignData?.category || "Miscellaneous"}
               </div>
             </div>
             <div className="text-sm mt-5 leading-relaxed">
@@ -102,7 +119,7 @@ const Details = () => {
                       url: window.location.href,
                     });
                   }
-                }}                
+                }}
               >
                 Share
               </button>
@@ -129,45 +146,61 @@ const Details = () => {
                 </div>
               </div>
             </div>
+
             <div className="py-7 border-b border-gray-300">
+
               <div className="font-medium text-2xl">
                 Words of support ({donations?.length})
               </div>
+
               <div className="text-gray-500 text-sm mt-3">
                 Please donate to share the words of support
               </div>
+
               {donations != "" ? (
-                <div className="grid gap-y-4 mt-3">
-                  {donations.map((item, index) => {
-                    return (
-                      <div key={index} className="flex items-start gap-4 mt-5">
-                        <div className="bg-gray-100 w-max p-2 rounded-full">
-                          <PiHandHeart size={22} />
-                        </div>
-                        <div className="grid gap-y-1">
-                          <div className="font-medium">{item.data()?.name}</div>
-                          <div className="text-[14px] text-gray-500">
-                            <NumericFormat
-                              value={item.data()?.amount}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              prefix={"₹ "}
-                            />{" "}
-                          </div>
-                          <div className="text-sm text-gray-500 max-w-[80%] text-justify">
-                            {item.data()?.note && item.data()?.note}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                 <div className="grid gap-y-4 mt-3">
+                 {recDonations.map((item, index) => {
+                   return (
+                     <div key={index} className="flex items-start gap-4 mt-5">
+                       <div className="bg-gray-100 w-max p-2 rounded-full">
+                         <PiHandHeart size={22} />
+                       </div>
+                       <div className="grid gap-y-1">
+                         <div className="font-medium">{item.data()?.name}</div>
+                         <div className="text-[14px] text-gray-500">
+                           <NumericFormat
+                             value={item.data()?.amount}
+                             displayType={"text"}
+                             thousandSeparator={true}
+                             prefix={"₹ "}
+                           />{" "}
+                         </div>
+                         <div className="text-sm text-gray-500 max-w-[80%] text-justify">
+                           {item.data()?.note && item.data()?.note}
+                         </div>
+                       </div>
+                     </div>
+                   );
+                 })}
+                  <button
+                    onClick={() => setAllDonations(true)}
+                    className="w-full py-2 border rounded-lg text-sm"
+                  >
+                    Show more
+              </button>
+               </div>
+               
+
               ) : (
                 <div className="text-sm border rounded text-center py-14 mt-5">
                   No one has donated yet, Be the first one to make a change!
                 </div>
               )}
+
+             
+
             </div>
+            
             <div className="flex items-center gap-4 py-5">
               <BsFlag size={24} />
               Report this fundraiser
@@ -250,7 +283,7 @@ const Details = () => {
                   })
                 ) : (
                   <div className="text-sm text-center border rounded py-4">
-                    No one has donated yet, Be the first one to donat!
+                    No one has donated yet, Be the first one to donate!
                   </div>
                 )}
               </div>
@@ -273,6 +306,7 @@ const Details = () => {
               )}
             </div>
           </div>
+
         </div>
       </div>
       {showDonate == true ? (

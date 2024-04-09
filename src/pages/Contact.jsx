@@ -32,7 +32,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="max-sm:px-4">
+      <section className="max-sm:px-4 px-4">
         <div className="lg:px-36">
           <div className="py-8 max-sm:py-4 text-2xl text-blue-900 flex items-center">
             <FiMapPin className="text-blue-900 text-3xl ml-20 max-sm:ml-6 max-sm:text-sm" />
@@ -40,25 +40,24 @@ const Contact = () => {
           </div>
           <hr className="bg-blue-900 h-[0.15rem] w-96 max-sm:w-full" />
           <p className="my-5 max-sm:text-sm">
-            Milaap Social Ventures India Pvt. Ltd. Nextcoworks JP Nagar -
-            Coworking Space JP Nagar Alankar Plaza, Bk circle, Nayak Layout, 8th
-            Phase, J. P. Nagar, Bangalore, Karnataka, India 560078
+            DHANAWAN, SARWAN BAZAR, Sharmakhas Barachatti, Gaya-824201, Bihar
           </p>
           <p className="mb-5 max-sm:text-sm">
             {" "}
-            <FiMail className="inline-block mr-2" /> feedback@milaap.org
+            <FiMail className="inline-block mr-2" /> info@munniwelfare.org
           </p>
           <p className="mb-5 max-sm:text-sm">
             {" "}
-            <FiPhone className="inline-block mr-2" /> 9916174848
+            <FiPhone className="inline-block mr-2" /> 7739969027
           </p>
           <div className="my-16">
+
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.9679463135576!2d80.93813697514358!3d26.872759461806925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd00079a7793%3A0x86da40b44df7cc21!2sThe%20Hazelnut%20Factory%20-%20Cafe%20in%20Lucknow!5e0!3m2!1sen!2sin!4v1709392835341!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1814.95416257941!2d84.97691988860419!3d24.523254384794413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDHANAWAN%2C%20SARWAN%20BAZAR%2C%20Sharmakhas%20Barachatti%2C%20Gaya-824201%2C%20Bihar!5e0!3m2!1sen!2sin!4v1712239450699!5m2!1sen!2sin"
               style={{ border: "0" }}
-              allowFullScreen=""
+              allowfullscreen=""
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerpolicy="no-referrer-when-downgrade"
               className="w-full h-[400px]"
             ></iframe>
           </div>
@@ -66,7 +65,7 @@ const Contact = () => {
       </section>
 
       <section>
-        <div className="lg:px-36 bg-primary py-10 max-sm:px-4">
+        <div className="lg:px-36 bg-primary py-10 max-sm:px-4 px-4">
           <p className="pb-8 max-sm:pb-4 max-sm:text-lg text-2xl">
             Join the conversation
           </p>
@@ -78,7 +77,7 @@ const Contact = () => {
       </section>
 
       <section>
-        <div className="lg:px-36 max-sm:px-4">
+        <div className="lg:px-36 max-sm:px-4 px-4 pt-8">
           <p className="lg:py-14 text-2xl max-sm:text-xl max-sm:mt-5">
             Let us know what you think
           </p>
