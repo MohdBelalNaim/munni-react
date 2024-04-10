@@ -2,35 +2,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
+import { db, storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { SpinnerCircular } from "spinners-react";
 
 function EditProfile({ docId, userData }) {
   const [isVisible, setIsVisible] = useState(true);
   const [photo, setPhoto] = useState("");
-  // const [user, setUser] = useState({});
-  const { register, handleSubmit, setValue } = useForm();
   const [loading, setLoading] = useState(false);
-
-  // async function getUserData() {
-  //   const user = query(
-  //     collection(db, "users"),
-  //     where("email", "==", localStorage.getItem("user"))
-  //   );
-  //   const data = await getDocs(user);
-  //   setUser(data.docs[0].data());
-  //   setValue("name", data.docs[0].data()?.name);
-  //   setValue("dob", data.docs[0].data()?.dob);
-  //   setValue("pan", data.docs[0].data()?.pan);
-  //   setValue("aadhar", data.docs[0].data()?.aadhar);
-  //   setValue("address", data.docs[0].data()?.address);
-  // }
-  // useEffect(() => {
-  //   getUserData();
-  // }, []);
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     if (userData) {
@@ -42,12 +24,25 @@ function EditProfile({ docId, userData }) {
     }
   }, [userData, setValue]);
 
+  const uploadImage = async () => {
+    if (photo) {
+      const storageRef = ref(storage, `images/${photo.name}`);
+      await uploadBytes(storageRef, photo);
+      return getDownloadURL(storageRef);
+    }
+    return null;
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     try {
+      const imageUrl = await uploadImage();
+      if (imageUrl) {
+        data.photo = imageUrl;
+      }
       await updateDoc(doc(db, "users", docId), data);
       setLoading(false);
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.error("Error updating document: ", error);
       setLoading(false);
@@ -79,15 +74,15 @@ function EditProfile({ docId, userData }) {
                       <img
                         src={URL.createObjectURL(photo)}
                         alt=""
-                        width="100%"
-                        height="100%"
+                        width="100px"
+                        height="100px"
                       />
                     ) : (
                       <img
                         src="https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                         alt=""
-                        width="100%"
-                        height="100%"
+                        width="100px"
+                        height="100px"
                       />
                     )}
                   </div>
@@ -133,26 +128,26 @@ function EditProfile({ docId, userData }) {
                 />
                 <div className="flex justify-center mt-4">
                   {loading ? (
-                  <button
-                    disabled
-                    type="submit"
-                    className="bg-blue-500 flex justify-center text-sm px-4 py-2 text-white rounded-full"
-                  >
-                    Updating
-                    <SpinnerCircular
-                      color="white"
-                      secondaryColor="gray"
-                      size={20}
-                    />
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="text-sm px-4 py-2 bg-secondary text-white rounded-full"
-                  >
-                    Update Profile
-                  </button>
-                )}
+                    <button
+                      disabled
+                      type="submit"
+                      className="bg-blue-500 flex justify-center text-sm px-4 py-2 text-white rounded-full"
+                    >
+                      Updating
+                      <SpinnerCircular
+                        color="white"
+                        secondaryColor="gray"
+                        size={20}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="text-sm px-4 py-2 bg-secondary text-white rounded-full"
+                    >
+                      Update Profile
+                    </button>
+                  )}
                 </div>
               </div>
             </form>

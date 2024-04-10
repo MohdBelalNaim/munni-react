@@ -9,6 +9,9 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import Campaigns from "./pages/Campaigns";
 import Profile from "./pages/Profile";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/Terms&Conditions";
+
 function App() {
   return (
     <Provider store={store}>
@@ -20,6 +23,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/campaign" element={<Campaigns />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsConditions />} />
         </Routes>
         <Footer />
       </BrowserRouter>

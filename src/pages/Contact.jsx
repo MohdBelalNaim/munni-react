@@ -1,8 +1,26 @@
-import React from "react";
-import { PiHandHeart } from "react-icons/pi";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 import Navigation from "../components/NavigationBar";
+
 const Contact = () => {
+  const { register, handleSubmit, reset } = useForm();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const queryRef = collection(db, "queries");
+      await addDoc(queryRef, data);
+      setLoading(false);
+      reset(); 
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Navigation />
@@ -51,7 +69,6 @@ const Contact = () => {
             <FiPhone className="inline-block mr-2" /> 7739969027
           </p>
           <div className="my-16">
-
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1814.95416257941!2d84.97691988860419!3d24.523254384794413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDHANAWAN%2C%20SARWAN%20BAZAR%2C%20Sharmakhas%20Barachatti%2C%20Gaya-824201%2C%20Bihar!5e0!3m2!1sen!2sin!4v1712239450699!5m2!1sen!2sin"
               style={{ border: "0" }}
@@ -81,28 +98,38 @@ const Contact = () => {
           <p className="lg:py-14 text-2xl max-sm:text-xl max-sm:mt-5">
             Let us know what you think
           </p>
-          <div className="mb-12">
-            <input
-              type="text"
-              placeholder="Name"
-              className="border-b border-gray-300 py-4 max-sm:mr-0 mr-14 w-96 max-sm:w-full"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="border-b border-gray-300 py-4 w-96 max-sm:w-full"
-            />
-          </div>
-          <textarea
-            className="border border-gray-300 rounded-xl p-3 w-full"
-            cols=""
-            rows="10"
-            placeholder="You can type any suggestions or queries you might have. Let us help you!"
-          ></textarea>{" "}
-          <br />
-          <button className="bg-secondary text-white rounded-3xl my-8 px-28 py-3 max-sm:w-full">
-            Send
-          </button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-12">
+              <input
+                type="text"
+                placeholder="Name"
+                className="border-b border-gray-300 py-4 max-sm:mr-0 mr-14 w-96 max-sm:w-full"
+                {...register("name")}
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="border-b border-gray-300 py-4 w-96 max-sm:w-full"
+                {...register("email")}
+              />
+            </div>
+            <textarea
+              className="border border-gray-300 rounded-xl p-3 w-full"
+              cols=""
+              rows="10"
+              placeholder="You can type any suggestions or queries you might have. Let us help you!"
+              {...register("message")}
+            ></textarea>{" "}
+            <br />
+            <button
+              className={`bg-secondary text-white rounded-3xl my-8 px-28 py-3 max-sm:w-full ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send"}
+            </button>
+          </form>
         </div>
       </section>
     </>
