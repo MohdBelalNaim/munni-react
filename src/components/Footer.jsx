@@ -35,10 +35,10 @@ const Footer = () => {
         <div className="lg:w-1/2 flex justify-center lg:justify-end pt-5 lg:py-0">
           <div className="mr-8">
             <h6 className="mb-4">About Us</h6>
-            <Link href="/campaign">
+            <Link to="/campaign">
               <h4 className="mb-4">Campaigns</h4>
             </Link>
-            <Link href="/contact">
+            <Link to="/contact">
               <h4 className="mb-4">Contact Us</h4>
             </Link>
           </div>
@@ -57,8 +57,11 @@ const Footer = () => {
           </p>
         </div>
         <div className="lg:w-1/2 flex justify-end">
-          <p className="mr-4 text-sm">Privacy Policy</p>
-          <p className="text-sm">Terms & Conditions</p>
+          <Link to="/privacy-policy">
+            <p className="mr-4 text-sm">Privacy Policy</p>
+          </Link>
+          <Link to="/terms-and-conditions">
+          <p className="text-sm">Terms & Conditions</p></Link>
         </div>
       </div>
     </footer>

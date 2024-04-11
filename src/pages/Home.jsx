@@ -4,7 +4,6 @@ import { PiHandHeart } from "react-icons/pi";
 import Footer from "../components/Footer";
 import SignIn from "../components/SignIn";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   hideMenu,
   login,
@@ -33,6 +32,7 @@ const Home = () => {
   const [campaigns, setCampaigns] = useState([]);
 
   const ref = query(collection(db, "campaigns"), limit(3));
+
   useEffect(() => {
     async function getCampaigns() {
       const data = await getDocs(ref);
@@ -46,6 +46,7 @@ const Home = () => {
     localStorage.clear();
     router.push("/");
   }
+
   return (
     <>
       {menu && <MobileMenu />}
@@ -189,12 +190,13 @@ const Home = () => {
         </div>
       </section> */}
 
-      <section className="lg:px-36 px-4 border-t  ">
-        <div className="text-2xl max-sm:text-[18px] font-medium text-secondary flex items-center justify-between lg:my-8 mt-4">
-          Active Fundraisers
-        </div>
-        <div className="max-sm:hidden grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
-          {campaigns.map((item, index) => {
+      {campaigns.length > 0 && (
+        <section className="lg:px-36 px-4 border-t">
+          <div className="text-2xl max-sm:text-[18px] font-medium text-secondary flex items-center justify-between lg:my-8 mt-4">
+            Active Fundraisers
+          </div>
+          <div className="max-sm:hidden grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
+             {campaigns.map((item, index) => {
             return (
               <>
                 <SwiperSlide>
@@ -203,9 +205,9 @@ const Home = () => {
               </>
             );
           })}
-        </div>
-        <Swiper className="hidden max-sm:block mb-4 mt-3">
-          <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
+          </div>
+          <Swiper className="hidden max-sm:block mb-4 mt-3">
+            <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
             {campaigns.map((item, index) => {
               return (
                 <>
@@ -215,21 +217,20 @@ const Home = () => {
                 </>
               );
             })}
+            </div>
+          </Swiper>
+          <div className="max-sm:flex mb-4 flex justify-center">
+            <button>
+              <Link
+                to="/campaign"
+                className="bg-secondary text-white font-light text-sm py-2 px-4 rounded-full flex items-center gap-2"
+              >{" "}
+                All Campaigns <BsArrowRight />
+              </Link>
+            </button>
           </div>
-        </Swiper>
-
-        <div className="max-sm:flex mb-4 flex justify-center">
-          <button>
-            <Link
-              to="/campaign"
-              className="bg-secondary text-white font-light text-sm py-2 px-4 rounded-full flex items-center gap-2"
-            >
-              {" "}
-              All Campaigns <BsArrowRight />
-            </Link>
-          </button>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="bg-orange-100">
         <div className="grid grid-cols-2 max-sm:grid-cols-1 lg:px-36 lg:py-8 p-4">

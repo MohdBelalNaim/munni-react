@@ -44,16 +44,19 @@ function Profile() {
             </div>
 
             <div className="flex lg:gap-8 gap-5 mb-4">
-              <img
-                src={
-                  userData?.photo ||
-                  "https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                }
-                alt=""
-                width="100px"
-                height="100px"
-                className="rounded-full"
-              />
+              <div className="rounded-full overflow-hidden"
+                    style={{ width: "100px", height: "100px" }}>
+                <img
+                  src={
+                    userData?.photo ||
+                    "https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  }
+                  alt=""
+                  width="100px"
+                  height="100px"
+                  className="rounded-full"
+                />
+              </div>
 
               <div className="pt-8">
                 <p className="xl:text-md text-gray-500 text-sm">Name</p>
