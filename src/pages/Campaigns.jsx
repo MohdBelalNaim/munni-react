@@ -34,6 +34,12 @@ function Campaigns() {
         </h1>
       </div>
 
+      {campaigns.length === 0 && (
+        <section className="max-sm:px-4 lg:px-36 h-[170px]  flex justify-center items-center">
+          <div className="text-center lg:text-4xl text-lg font-semibold">No active campaigns available</div>
+        </section>
+      )}
+
       <section className="mb-14">
         <div className="grid grid-cols-3 gap-4 mt-4 max-sm:grid-cols-1 max-sm:px-2 lg:px-36 md:px-4">
           {campaigns.map((item, index) => {
