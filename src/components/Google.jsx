@@ -19,6 +19,7 @@ function Google() {
   };
 
   return (
+    <>
     <button
       onClick={signUpWithGoogle}
       className="w-full bg-white text-black border border-black rounded p-2 font-bold"
@@ -31,6 +32,8 @@ function Google() {
       <span className="text-green-500">l</span>
       <span className="text-red-500">e</span>
     </button>
+    <p className="md:py-3 py-1 text-center">or</p>
+    </>
   );
 }
 export default Google;

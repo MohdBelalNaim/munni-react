@@ -14,7 +14,7 @@ function SignIn() {
     <>
       <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-70">
         <div className="animate__animated animate__bounceIn w-[500px]">
-          <div className="mx-auto border border-gray-300 pt-3 pb-5 px-8 rounded-xl bg-white text-black">
+          <div className="mx-auto border border-gray-300 pt-3 pb-5 md:px-8 px-4 rounded-xl bg-white text-black">
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => dispatch(hideAuth())}
@@ -23,13 +23,13 @@ function SignIn() {
             <h3 className="pb-3 border-b border-gray-300 flex justify-between">
               <span
                 onClick={() => setLoggedIn(1)}
-                className="cursor-pointer text-black font-bold pl-10"
+                className="cursor-pointer text-black font-bold pl-6 md:pl-10 md:text-base text-sm"
               >
                 Login
               </span>
               <span
                 onClick={() => setLoggedIn(2)}
-                className="cursor-pointer text-black font-bold pr-10"
+                className="cursor-pointer text-black font-bold pr-6 md:pr-10 md:text-base text-sm"
               >
                 Signup
               </span>
@@ -37,7 +37,7 @@ function SignIn() {
             {loggedIn === 1 ? (
               <>
                 <Login />
-                <p className="py-3 text-center text-base">
+                <p className="py-3 text-center md:text-base text-sm">
                   Don&apos;t have an account?{" "}
                   <span
                     className="cursor-pointer"
@@ -50,7 +50,7 @@ function SignIn() {
             ) : loggedIn === 2 ? (
               <>
                 <Signup />
-                <p className="py-3 text-center text-base">
+                <p className="md:py-3 py-2 text-center md:text-base text-sm">
                   Already have an account?{" "}
                   <span
                     className="cursor-pointer"
@@ -59,7 +59,7 @@ function SignIn() {
                     Login
                   </span>
                 </p>
-                <p className="text-center text-sm">
+                <p className="text-center  md:text-sm text-xs">
                   By continuing, you agree with GiveUmma&apos;s Terms of Use and
                   Privacy Policy
                 </p>
