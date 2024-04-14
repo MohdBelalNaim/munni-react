@@ -9,6 +9,7 @@ function Google() {
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
   const dispatch = useDispatch();
+  
   const signUpWithGoogle = () => {
     signInWithPopup(auth, googleProvider).then(async (value) => {
       await createUser(value.user);
