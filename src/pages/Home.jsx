@@ -59,7 +59,7 @@ const Home = () => {
         className="bg-cover"
       >
         <div className="inset-0 backdrop-brightness-50 ">
-          <div className="">
+          <div>
             <div className="text-white flex justify-between items-center lg:px-36 lg:py-14 px-4 py-8">
               <div className="flex items-end gap-3 ">
                 <img src={logo} alt="Ni load hua" className="w-[8%]" />
@@ -77,18 +77,9 @@ const Home = () => {
                 <div>
                   <Link to="/contact">Contact</Link>
                 </div>
-                <div>Get Involved</div>
+                {/* <div>Get Involved</div> */}
 
-                {!loggedIn && (
-                  <div
-                    onClick={() => dispatch(showAuth())}
-                    style={{ cursor: "pointer" }}
-                  >
-                    Login
-                  </div>
-                )}
-
-                {loggedIn && (
+                {loggedIn ? (
                   <>
                     <div>
                       <Link to="/profile">My Profile</Link>
@@ -97,6 +88,13 @@ const Home = () => {
                       Logout
                     </div>
                   </>
+                ) : (
+                  <div
+                    onClick={() => dispatch(showAuth())}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Login
+                  </div>
                 )}
 
                 <Link to="/campaign">
@@ -196,18 +194,6 @@ const Home = () => {
             Active Fundraisers
           </div>
           <div className="max-sm:hidden grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
-             {campaigns.map((item, index) => {
-            return (
-              <>
-                <SwiperSlide>
-                  <CampaignCard key={index} data={item.data()} id={item.id} />
-                </SwiperSlide>
-              </>
-            );
-          })}
-          </div>
-          <Swiper className="hidden max-sm:block mb-4 mt-3">
-            <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
             {campaigns.map((item, index) => {
               return (
                 <>
@@ -217,6 +203,22 @@ const Home = () => {
                 </>
               );
             })}
+          </div>
+          <Swiper className="hidden max-sm:block mb-4 mt-3">
+            <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1 lg:my-8 my-4">
+              {campaigns.map((item, index) => {
+                return (
+                  <>
+                    <SwiperSlide>
+                      <CampaignCard
+                        key={index}
+                        data={item.data()}
+                        id={item.id}
+                      />
+                    </SwiperSlide>
+                  </>
+                );
+              })}
             </div>
           </Swiper>
           <div className="max-sm:flex mb-4 flex justify-center">
@@ -224,7 +226,8 @@ const Home = () => {
               <Link
                 to="/campaign"
                 className="bg-secondary text-white font-light text-sm py-2 px-4 rounded-full flex items-center gap-2"
-              >{" "}
+              >
+                {" "}
                 All Campaigns <BsArrowRight />
               </Link>
             </button>

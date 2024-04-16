@@ -49,7 +49,7 @@ function Navigation() {
           <div>
             <Link to="/contact">Contact</Link>
           </div>
-          <div>Get Involved</div>
+          {/* <div>Get Involved</div> */}
 
           {!loggedIn && (
             <div
