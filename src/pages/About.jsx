@@ -20,14 +20,14 @@ function About() {
                 <img
                   src="https://plus.unsplash.com/premium_photo-1682092585257-58d1c813d9b4?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHBvb3IlMjBjaGlsZHxlbnwwfHwwfHx8MA%3D%3D"
                   alt=""
-                  class="w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="w-1/2 overflow-hidden rounded-t-2xl rounded-br-2xl">
                 <img
                   src="https://i0.wp.com/ketto.blog/wp-content/uploads/2022/12/5-ways-you-can-use-your-financial-power-to-help-poor-children.png?fit=1920%2C1080&ssl=1"
                   alt=""
-                  class="w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
@@ -36,14 +36,14 @@ function About() {
                 <img
                   src="https://www.humanium.org/en/wp-content/uploads/2024/02/shutterstock_2310995339-1024x680.jpg"
                   alt=""
-                  class="w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="w-1/2 overflow-hidden rounded-b-2xl rounded-tr-2xl">
                 <img
                   src="https://assets.gogetfunding.com/wp-content/uploads/2019/04/6075001/img/poverty-in-india-01.jpg"
                   alt=""
-                  class="w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>

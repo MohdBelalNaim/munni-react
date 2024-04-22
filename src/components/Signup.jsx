@@ -1,3 +1,4 @@
+// Signup.js
 import React, { useState } from "react";
 import { toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css"; 
@@ -12,24 +13,25 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { SpinnerCircular } from "spinners-react";
 import { useDispatch } from "react-redux"; 
 import { login } from "../redux/toggleSlice";
+import { hideAuth } from "../redux/toggleSlice";
+import { createUser } from "../utils/createUser"; 
 
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 
-function Signup(props) {
+function Signup() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [dob, setDob] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [panNo, setPanNo] = useState("");
-  const [aadharNo, setAadharNo] = useState("");
   const dispatch = useDispatch(); 
 
-  const createUser = async () => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value); 
+  };
+
+  const handleSignUp = async () => {
     setLoading(true);
     try {
       if (!email || !password || !fname || !lname) {
@@ -50,23 +52,32 @@ function Signup(props) {
 
       const userData = {
         email: email,
-        fullName: `${fname} ${lname}`,
-        dob: dob,
-        phone: phone,
-        address: address,
-        panNo: panNo,
-        aadharNo: aadharNo,
+        displayName: `${fname} ${lname}`,
       };
 
-      // Add user data to Firestore
-      await addDoc(collection(firestore, "users"), userData);
+      // Set user data in localStorage
+      localStorage.setItem("user", email);
+
+      // Use the createUser function from utils/createUser.js
+      await createUser(userData); 
       console.log("User data saved to Firestore:", userData);
       dispatch(login());
-      props.closeSignIn();
+      dispatch(hideAuth());
       setLoading(false);
     } catch (error) {
-      toast.error("Error creating user: " + error.message); 
-      console.error("Error creating user:", error);
+      if (error.message.includes('auth/email-already-in-use')) {
+        toast.error("Email already registered");
+      } 
+      else if(error.message.includes('auth/invalid-email')){
+        toast.error("Invalid email address");
+      }
+      else if(error.message.includes('auth/weak-password')){
+        toast.error("Password should be 6 characters or more");
+      }
+      else {
+        toast.error("Error creating user: " + error.message);
+        console.error("Error creating user:", error);
+      }
       setLoading(false);
     }
   };
@@ -101,7 +112,7 @@ function Signup(props) {
           type="email"
           placeholder="Email Address"
           className="bg-gray-100 border-gray-300 w-full py-3 md:px-4 px-2 mt-3 shadow-inner rounded-lg text-sm md:text-base"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange} // Update email state when the input value changes
           value={email}
           required
         />
@@ -123,12 +134,6 @@ function Signup(props) {
           GiveUmma
         </label>
       </div>
-      {/* <button
-        className="w-full bg-black text-white border border-black rounded-lg p-2 md:mt-5 mt-3"
-        onClick={createUser}
-      >
-        Sign Up
-      </button> */}
       {loading ? (
         <button
           disabled
@@ -142,7 +147,7 @@ function Signup(props) {
         <button
           type="submit"
           className="w-full bg-black text-white border border-black rounded-lg p-2 md:mt-5 mt-3"
-          onClick={createUser}
+          onClick={handleSignUp}
         >
           Sign Up
         </button>
