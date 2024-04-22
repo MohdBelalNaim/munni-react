@@ -8,10 +8,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; 
 import { useDispatch } from "react-redux"; 
 import { login } from "../redux/toggleSlice";
+import { hideAuth } from "../redux/toggleSlice";
 
 const auth = getAuth(app);
 
-function Login(props) {
+function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [forgotpass, setforgotpass] = useState(false);
@@ -20,16 +21,26 @@ function Login(props) {
 
   const logIn = () => {
     setLoading(true);
+    if (!email || !password) {
+      toast.error("Please fill all required fields.");
+      setLoading(false); 
+      return;
+    }
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        props.closeSignIn();
+        localStorage.setItem("user", email);
         dispatch(login());
-        // alert("Log In Successful");
+        alert("Log In Successful");
+        dispatch(hideAuth());
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error("Log In Failed")
-        console.log(err);
+      .catch((error) => {
+        if(error.message.includes('auth/invalid-email')){
+          toast.error("Invalid email address");
+        }
+        else{
+          toast.error("Invalid Credentials")
+        }
         setLoading(false);
       });
   };

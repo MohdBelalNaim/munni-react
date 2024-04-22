@@ -42,7 +42,7 @@ function SignIn() {
             </h3>
             {logged === 1 ? (
               <>
-                <Login closeSignIn={closeSignIn} />
+                <Login/>
                 <ToastContainer />
                 <p className="py-3 text-center md:text-base text-sm">
                   Don&apos;t have an account?{" "}
@@ -56,7 +56,7 @@ function SignIn() {
               </>
             ) : logged === 2 ? (
               <>
-                <Signup closeSignIn={closeSignIn} />
+                <Signup/>
                 <ToastContainer />
                 <p className="md:py-3 py-2 text-center md:text-base text-sm">
                   Already have an account?{" "}
